@@ -1,29 +1,25 @@
 <template>
     <div class="input-wrap">
         <input type="text" v-model="todo">
-        <button>Create</button>
+        <button style="cursor: pointer;" @click="createTodo()">Create</button>
     </div>
     {{ todo }}
-
-    <div class="input-wrap">
-        <input type="text" v-model="todoState.todo">
-        <button>Create</button>
-    </div>
-    {{ todoState.todo }}
 </template>
 
 <script setup>
-    import { reactive, ref } from "vue";
+    import { ref, defineEmits } from "vue";
+    // emit is used to send variable to parent component
+    const emit = defineEmits(["create-todo"])
 
     // the type of data in ref method can be string
     // to get the value in script we need to use value: console.log(todo.value)
     // in template . value will be added automatically
     const todo = ref('test')
 
-    // in reactive method the value should be object it can't be primative value like string
-    const todoState = reactive({
-        todo: 'testing'
-    })
+    const createTodo = () => {
+        emit("create-todo", todo.value);
+    }
+
 </script>
 
 <style lang="scss" scoped>
