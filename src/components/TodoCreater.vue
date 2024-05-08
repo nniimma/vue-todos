@@ -4,7 +4,7 @@
         <button style="cursor: pointer;" @click="createTodo()">Create</button>
     </div>
     <!-- v-if doesn't put the tag in the DOM if the statement is false but v-show will put it there with display none... -->
-    <p v-if="todoState.invalid" class="err-msg">{{ todoState.errMsg }}</p>
+    <p v-show="todoState.invalid" class="err-msg">{{ todoState.errMsg }}</p>
 </template>
 
 <script setup>
