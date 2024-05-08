@@ -1,5 +1,5 @@
 <template>
-    <div class="input-wrap">
+    <div class="input-wrap" :class="{'input-err' : todoState.invalid}">
         <input type="text" v-model="todoState.todo">
         <button style="cursor: pointer;" @click="createTodo()">Create</button>
     </div>
@@ -32,5 +32,5 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/todo-create.css';
+@import '../assets/css/todo-create.scss';
 </style>

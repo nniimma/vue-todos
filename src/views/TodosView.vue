@@ -23,5 +23,5 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '../assets/css/todo-view.css';
+  @import '../assets/css/todo-view.scss';
 </style>

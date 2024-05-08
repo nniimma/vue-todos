@@ -18,5 +18,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/css/todo-header.css';
+  @import '../assets/css/todo-header.scss';
 </style>
