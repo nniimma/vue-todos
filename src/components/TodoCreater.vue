@@ -1,7 +1,11 @@
 <template>
     <div class="input-wrap" :class="{'input-err' : todoState.invalid}">
         <input type="text" v-model="todoState.todo">
-        <button style="cursor: pointer;" @click="createTodo()">Create</button>
+        <todo-button @click="createTodo">
+            <template #create-btn> <!--! instead of #create-btn we can use v-slot:create-btn -->
+                    Create
+            </template>
+        </todo-button>
     </div>
     <!-- v-if doesn't put the tag in the DOM if the statement is false but v-show will put it there with display none... -->
     <p v-show="todoState.invalid" class="err-msg">{{ todoState.errMsg }}</p>
@@ -9,6 +13,8 @@
 
 <script setup>
     import { ref, defineEmits, reactive } from "vue";
+    import TodoButton from "./TodoButton.vue";
+    
     // emit is used to send variable to parent component
     const emit = defineEmits(["create-todo"])
 
