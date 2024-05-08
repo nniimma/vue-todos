@@ -1,23 +1,32 @@
 <template>
     <div class="input-wrap">
-        <input type="text" v-model="todo">
+        <input type="text" v-model="todoState.todo">
         <button style="cursor: pointer;" @click="createTodo()">Create</button>
     </div>
-    {{ todo }}
+    <!-- v-if doesn't put the tag in the DOM if the statement is false but v-show will put it there with display none... -->
+    <p v-if="todoState.invalid" class="err-msg">{{ todoState.errMsg }}</p>
 </template>
 
 <script setup>
-    import { ref, defineEmits } from "vue";
+    import { ref, defineEmits, reactive } from "vue";
     // emit is used to send variable to parent component
     const emit = defineEmits(["create-todo"])
 
-    // the type of data in ref method can be string
-    // to get the value in script we need to use value: console.log(todo.value)
-    // in template . value will be added automatically
-    const todo = ref('test')
+    const todoState = reactive({
+        todo: '',
+        invalid: null,
+        errMsg: ''
+    });
 
     const createTodo = () => {
-        emit("create-todo", todo.value);
+        todoState.invalid = null;
+        if(todoState.todo !==''){
+            emit("create-todo", todoState.todo);
+            todoState.todo = '';
+            return
+        }
+        todoState.invalid = true;
+        todoState.errMsg = 'Todo value can not be empty!'
     }
 
 </script>
