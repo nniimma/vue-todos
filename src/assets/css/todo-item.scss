@@ -29,6 +29,10 @@ li {
     .todo {
       flex: 1;
   
+      .completed-todo{
+        text-decoration: line-through;
+      }
+
       input[type="text"] {
         width: 100%;
         padding: 2px 6px;

@@ -1,11 +1,11 @@
 <template>
     <li>
-        <input type="checkbox" :checked="todo.isCompleted">
+        <input :id="'input-'+ index" type="checkbox" :checked="todo.isCompleted" @input="$emit('toggle-complete', index)">
         <div class="todo">
             <input v-if="isEdited" type="text" :value="todo.todo">
-            <span v-else>
+            <label v-else :for="'input-'+ index" :class="{'completed-todo' : todo.isCompleted}">
                 {{ todo.todo }}
-            </span>
+            </label>
         </div>
         <div class="todo-actions">
             <img v-if="isEdited" class="icon" src="../assets/icons/check-circle.svg" alt="">
@@ -17,11 +17,17 @@
 <script setup>
 
     const props = defineProps({
-        todo: {
-            type: Object,
-            required: true,
-        }
+            todo: {
+                type: Object,
+                required: true,
+            },
+            index: {
+                type: Number,
+                required: true
+            }
         })
+
+        defineEmits(['toggle-complete'])
 </script>
 <style lang="scss" scoped>
     @import '../assets/css/todo-item.scss';
