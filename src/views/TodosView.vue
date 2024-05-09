@@ -2,9 +2,18 @@
   import TodoItem from '@/components/TodoItem.vue';
   import TodoCreater from '@/components/TodoCreater.vue';
   import { uid } from 'uid';
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
 
   const todoList = ref([]);
+
+  // watch do the function eachtime that the values inside todoList changes:
+  // it takes the new value and the old value of the list
+  // we use deep property becaue inside the array we have object, so it should go depper inside to get the values inside the object
+  watch(todoList, (newValue, oldValue) => {
+    setTodoListLocalStorage()
+  }, {
+    deep: true,
+  })
 
   const setTodoListLocalStorage = () => {
     localStorage.setItem('todoList', JSON.stringify(todoList.value))
@@ -27,27 +36,22 @@
       isCompleted: null,
       isEdited: null
     })
-    setTodoListLocalStorage()
   }
 
   const toggleTodoComplete = (todoPos) => {
     todoList.value[todoPos].isCompleted = !todoList.value[todoPos].isCompleted;
-    setTodoListLocalStorage()
   }
 
   const toggleEditTodo = (todoPos) => {
     todoList.value[todoPos].isEdited = !todoList.value[todoPos].isEdited;
-    setTodoListLocalStorage()
   }
 
   const updateTodo = (todoVal, todoPos) => {
     todoList.value[todoPos].todo = todoVal;
-    setTodoListLocalStorage()
   }
 
   const deleteTodo = (todoId) => {
     todoList.value = todoList.value.filter((todo) => todo.id !== todoId)
-    setTodoListLocalStorage()
   }
 </script>
 
