@@ -7,8 +7,9 @@
   const todoList = ref([]);
 
   const createTodo = (todo) => {
+    const uniqueId = uid()
     todoList.value.push({
-      id: uid,
+      id: uniqueId,
       todo,
       isCompleted: null,
       isEdited: null
@@ -26,6 +27,11 @@
   const updateTodo = (todoVal, todoPos) => {
     todoList.value[todoPos].todo = todoVal;
   }
+
+  const deleteTodo = (todoId) => {
+    // console.log(todoId)
+    todoList.value = todoList.value.filter((todo) => todo.id !== todoId)
+  }
 </script>
 
 <template>
@@ -38,7 +44,8 @@
       :todo="todo" :index="index" 
       @toggle-complete="toggleTodoComplete" 
       @edit-todo="toggleEditTodo"
-      @update-todo="updateTodo"/>
+      @update-todo="updateTodo"
+      @delete-todo="deleteTodo"/>
     </ul>
     <p class="todos-msg" v-else>
       <span>You have no todos to complete, add one!</span>
