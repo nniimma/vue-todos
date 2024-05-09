@@ -2,7 +2,7 @@
   import TodoItem from '@/components/TodoItem.vue';
   import TodoCreater from '@/components/TodoCreater.vue';
   import { uid } from 'uid';
-  import { ref, watch } from 'vue';
+  import { ref, watch, computed } from 'vue';
 
   const todoList = ref([]);
 
@@ -13,6 +13,11 @@
     setTodoListLocalStorage()
   }, {
     deep: true,
+  })
+
+  // in computed each time the value is updated, it will execute again.
+  const todoCompleted = computed(() => {
+    return todoList.value.every((todo) => todo.isCompleted)
   })
 
   const setTodoListLocalStorage = () => {
@@ -71,6 +76,7 @@
     <p class="todos-msg" v-else>
       <span>You have no todos to complete, add one!</span>
     </p>
+    <p v-if="todoCompleted && todoList.length > 0" class="todos-msg">You have completed all of your todos.</p>
   </main>
 </template>
 
