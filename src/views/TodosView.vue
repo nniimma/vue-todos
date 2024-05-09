@@ -21,9 +21,12 @@
     <h1>Create todo:</h1>
     <todo-creater @create-todo="createTodo" />
 
-    <ul>
+    <ul class="todo-list" v-if="todoList.length > 0">
       <todo-item v-for="todo in todoList" :todo="todo"/>
     </ul>
+    <p class="todos-msg" v-else>
+      <span>You have no todos to complete, add one!</span>
+    </p>
   </main>
 </template>
 
